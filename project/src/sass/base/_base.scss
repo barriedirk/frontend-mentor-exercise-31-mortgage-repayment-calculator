@@ -1,0 +1,25 @@
+body {
+  background-color: var(--clr-slate-100);
+  font-family: var(--ff);
+  font-size: var(--fs-16);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer__attribution {
+  display: none;
+}
+
+@media screen and (min-width: 50em) {
+  body {
+    justify-content: center;
+  }
+
+  .footer__attribution {
+    display: initial;
+  }
+}

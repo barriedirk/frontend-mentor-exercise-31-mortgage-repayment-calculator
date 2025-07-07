@@ -35,7 +35,9 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/sass/styles.scss"]
+            "styles": [
+              "src/sass/styles.scss"
+            ]
           },
           "configurations": {
             "production": {
@@ -87,13 +89,29 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/sass/styles.scss"]
+            "styles": [
+              "src/sass/styles.scss"
+            ]
           }
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

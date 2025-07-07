@@ -1,0 +1,138 @@
+@let mortgageAmountCtrl = mortgageForm.controls['mortgageAmount']; @let mortgageTermCtrl =
+mortgageForm.controls['mortgageTerm'];
+
+<section class="mc">
+  <div class="mc__form">
+    <h1>Mortgage Calculator</h1>
+    <button type="button" (click)="clearAll()" aria-label="Clear all form fields">Clear All</button>
+
+    <form [formGroup]="mortgageForm" (ngSubmit)="calculateRepayments()">
+      <div class="f-group" [class.error]="mortgageAmountCtrl.invalid && mortgageAmountCtrl.touched">
+        <label class="f-label" for="mortgageAmount">Mortgage Amount</label>
+        <input
+          id="mortgageAmount"
+          class="f-input"
+          type="text"
+          formControlName="mortgageAmount"
+          appOnlyNumbers
+          aria-describedby="mortgageAmountErrors"
+          autocomplete="off"
+          inputmode="numeric"
+        />
+
+        @if (mortgageAmountCtrl.invalid && mortgageAmountCtrl.touched) {
+        <div id="mortgageAmountErrors">
+          @if (mortgageAmountCtrl.errors?.['required']) {
+          <small>Mortgage Amount is required.</small>
+          } @if (mortgageAmountCtrl.errors?.['min']) {
+          <small>Amount must be greater than 0.</small>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="f-group" [class.error]="mortgageTermCtrl.invalid && mortgageTermCtrl.touched">
+        <label class="f-label" for="mortgageTerm">Mortgage Term</label>
+        <input
+          id="mortgageTerm"
+          class="f-input"
+          type="text"
+          formControlName="mortgageTerm"
+          appOnlyNumbers
+          aria-describedby="mortgageTermErrors"
+          autocomplete="off"
+          inputmode="numeric"
+        />
+
+        @if (mortgageTermCtrl.invalid && mortgageTermCtrl.touched) {
+        <div id="mortgageTermErrors">
+          @if (mortgageTermCtrl.errors?.['required']) {
+          <small>Mortgage Term is required.</small>
+          } @if (mortgageTermCtrl.errors?.['min']) {
+          <small>Term must be greater than 0.</small>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="f-group" [class.error]="interestRateCtrl?.invalid && interestRateCtrl?.touched">
+        <label class="f-label" for="interestRate">Interest Rate</label>
+        <input
+          id="interestRate"
+          class="f-input"
+          type="text"
+          formControlName="interestRate"
+          appOnlyNumbers
+          aria-describedby="interestRateErrors"
+          autocomplete="off"
+          inputmode="numeric"
+        />
+
+        @if (interestRateCtrl?.invalid && interestRateCtrl?.touched) {
+        <div id="interestRateErrors">
+          @if (interestRateCtrl?.errors?.['required']) {
+          <small>Interest Rate is required.</small>
+          } @if (interestRateCtrl?.errors?.['min']) {
+          <small>Rate must be greater than or equal to 0.</small>
+          }
+        </div>
+        }
+      </div>
+
+      <fieldset class="f-group" aria-labelledby="mortgageTypeLabel">
+        <legend id="mortgageTypeLabel" class="f-label">Mortgage Type</legend>
+        <label class="f-custom-radio">
+          <input
+            class="f-radio"
+            type="radio"
+            formControlName="mortgageType"
+            [value]="'repayment'"
+          />
+          <span>Repayment</span>
+        </label>
+        <label class="f-custom-radio">
+          <input
+            class="f-radio"
+            type="radio"
+            formControlName="mortgageType"
+            [value]="'interestOnly'"
+          />
+          <span>Interest Only</span>
+        </label>
+      </fieldset>
+
+      <div>
+        <button type="submit" [disabled]="mortgageForm.invalid">Calculate Repayments</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="mc__result">
+    @if (!showResults) {
+    <div>
+      <h2>Results shown here</h2>
+      <p>
+        Complete the form and click “calculate repayments” to see what your monthly repayments would
+        be.
+      </p>
+    </div>
+    } @if (showResults) {
+    <div aria-live="polite">
+      <h2>Your results</h2>
+      <p>
+        Your results are shown below based on the information you provided. To adjust the results,
+        edit the form and click “calculate repayments” again.
+      </p>
+
+      <div>
+        <p>Your monthly repayments</p>
+        <p>{{ monthlyRepayment }}</p>
+      </div>
+      <div>
+        <p>Total you'll repay over the term</p>
+        <p>{{ totalRepayment }}</p>
+      </div>
+    </div>
+    }
+  </div>
+</section>
