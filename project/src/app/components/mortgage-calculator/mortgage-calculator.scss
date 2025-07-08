@@ -1,0 +1,15 @@
+.mc {
+  &__form {
+    background-color: var(--clr-white);
+    color: var(--clr-slate-700);
+
+    &-title {
+      color: var(--clr-slate-900);
+    }
+  }
+
+  &__result {
+    background-color: var(--clr-slate-900);
+    color: var(--clr-slate-300);
+  }
+}
