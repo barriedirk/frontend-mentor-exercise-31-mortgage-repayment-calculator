@@ -1,5 +1,9 @@
 .mc {
+  background-color: var(--clr-white);
+
   &__form {
+    width: 100%;
+    max-width: 688px;
     padding: 32px 24px;
     background-color: var(--clr-white);
     color: var(--clr-slate-700);
@@ -26,6 +30,8 @@
   }
 
   &__result {
+    width: 100%;
+    max-width: 688px;
     padding: 32px 24px;
     background-color: var(--clr-slate-900);
     color: var(--clr-slate-300);
@@ -46,6 +52,52 @@
       border-top: 4px solid var(--clr-lime);
       border-radius: 8px;
       padding: 32px;
+    }
+  }
+}
+
+@media screen and (min-width: 37em) {
+  .mc {
+    margin-block: 40px;
+
+    &__form {
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+
+      &-header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &-calculate {
+        flex: 0 0 50%;
+      }
+    }
+
+    &__result {
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+    }
+  }
+}
+
+@media screen and (min-width: 80em) {
+  .mc {
+    display: flex;
+    flex-direction: row;
+    max-width: 1008px;
+    border-radius: 24px;
+    gap: 10px;
+
+    &__form {
+      border-top-left-radius: 24px;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 24px;
+    }
+
+    &__result {
+      border-top-right-radius: 24px;
+      border-bottom-left-radius: 80px;
     }
   }
 }

@@ -42,6 +42,14 @@
   letter-spacing: 0;
 }
 
+.text-preset-6 {
+  font-family: var(--ff);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-14);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
 .underline {
   text-decoration: underline;
 }
@@ -125,6 +133,14 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  width: 100%;
+}
+
+.f-group-columns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
 
 .f-input-wrapper {
@@ -154,7 +170,7 @@
 .f-input-icon {
   display: inline-block;
   width: fit-content;
-  padding: 10px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -237,5 +253,12 @@
 
   input:checked + .f-radio-text::after {
     background-color: var(--clr-lime);
+  }
+}
+
+@media screen and (min-width: 37em) {
+  .f-group-columns {
+    flex-direction: row;
+    align-items: flex-start;
   }
 }

@@ -4,17 +4,19 @@ mortgageForm.controls['mortgageType'];
 
 <section class="mc">
   <div class="mc__form">
-    <h1 class="mc__form-title text-preset-2 slate-900">Mortgage Calculator</h1>
+    <header class="mc__form-header">
+      <h1 class="mc__form-title text-preset-2 slate-900">Mortgage Calculator</h1>
 
-    <button
-      class="mc__form-clear underline slate-700"
-      text-preset-4
-      type="button"
-      (click)="clearAll()"
-      aria-label="Clear all form fields"
-    >
-      Clear All
-    </button>
+      <button
+        class="mc__form-clear underline slate-700"
+        text-preset-4
+        type="button"
+        (click)="clearAll()"
+        aria-label="Clear all form fields"
+      >
+        Clear All
+      </button>
+    </header>
 
     <form class="mc__form-fields" [formGroup]="mortgageForm" (ngSubmit)="calculateRepayments()">
       <div class="f-group" [class.error]="mortgageAmountCtrl.invalid && mortgageAmountCtrl.touched">
@@ -45,62 +47,64 @@ mortgageForm.controls['mortgageType'];
         }
       </div>
 
-      <div class="f-group" [class.error]="mortgageTermCtrl.invalid && mortgageTermCtrl.touched">
-        <label class="f-label text-preset-4 slate-700" for="mortgageTerm">Mortgage Term</label>
+      <div class="f-group-columns">
+        <div class="f-group" [class.error]="mortgageTermCtrl.invalid && mortgageTermCtrl.touched">
+          <label class="f-label text-preset-4 slate-700" for="mortgageTerm">Mortgage Term</label>
 
-        <div class="f-input-wrapper text-preset-3">
-          <input
-            id="mortgageTerm"
-            class="f-input slate-900"
-            type="text"
-            formControlName="mortgageTerm"
-            appOnlyNumbers
-            aria-describedby="mortgageTermErrors"
-            autocomplete="off"
-            inputmode="numeric"
-            maxlength="5"
-          />
-          <span class="f-input-icon">years</span>
-        </div>
+          <div class="f-input-wrapper text-preset-3">
+            <input
+              id="mortgageTerm"
+              class="f-input slate-900"
+              type="text"
+              formControlName="mortgageTerm"
+              appOnlyNumbers
+              aria-describedby="mortgageTermErrors"
+              autocomplete="off"
+              inputmode="numeric"
+              maxlength="5"
+            />
+            <span class="f-input-icon">years</span>
+          </div>
 
-        @if (mortgageTermCtrl.invalid && mortgageTermCtrl.touched) {
-        <div id="mortgageTermErrors" class="red text-present-3">
-          @if (mortgageTermCtrl.errors?.['required']) {
-          <small>Mortgage Term is required.</small>
-          } @if (mortgageTermCtrl.errors?.['min']) {
-          <small>Term must be greater than 0.</small>
+          @if (mortgageTermCtrl.invalid && mortgageTermCtrl.touched) {
+          <div id="mortgageTermErrors" class="red text-present-3">
+            @if (mortgageTermCtrl.errors?.['required']) {
+            <small>Mortgage Term is required.</small>
+            } @if (mortgageTermCtrl.errors?.['min']) {
+            <small>Term must be greater than 0.</small>
+            }
+          </div>
           }
         </div>
-        }
-      </div>
 
-      <div class="f-group" [class.error]="interestRateCtrl?.invalid && interestRateCtrl?.touched">
-        <label class="f-label text-preset-4 slate-700" for="interestRate">Interest Rate</label>
+        <div class="f-group" [class.error]="interestRateCtrl?.invalid && interestRateCtrl?.touched">
+          <label class="f-label text-preset-4 slate-700" for="interestRate">Interest Rate</label>
 
-        <div class="f-input-wrapper text-preset-3">
-          <input
-            id="interestRate"
-            class="f-input slate-900"
-            type="text"
-            formControlName="interestRate"
-            appOnlyNumbers
-            aria-describedby="interestRateErrors"
-            autocomplete="off"
-            inputmode="numeric"
-            maxlength="5"
-          />
-          <span class="f-input-icon">%</span>
-        </div>
+          <div class="f-input-wrapper text-preset-3">
+            <input
+              id="interestRate"
+              class="f-input slate-900"
+              type="text"
+              formControlName="interestRate"
+              appOnlyNumbers
+              aria-describedby="interestRateErrors"
+              autocomplete="off"
+              inputmode="numeric"
+              maxlength="5"
+            />
+            <span class="f-input-icon">%</span>
+          </div>
 
-        @if (interestRateCtrl?.invalid && interestRateCtrl?.touched) {
-        <div id="interestRateErrors" class="red text-present-3">
-          @if (interestRateCtrl?.errors?.['required']) {
-          <small>Interest Rate is required.</small>
-          } @if (interestRateCtrl?.errors?.['min']) {
-          <small>Rate must be greater than or equal to 0.</small>
+          @if (interestRateCtrl?.invalid && interestRateCtrl?.touched) {
+          <div id="interestRateErrors" class="red text-present-3">
+            @if (interestRateCtrl?.errors?.['required']) {
+            <small>Interest Rate is required.</small>
+            } @if (interestRateCtrl?.errors?.['min']) {
+            <small>Rate must be greater than or equal to 0.</small>
+            }
+          </div>
           }
         </div>
-        }
       </div>
 
       <fieldset class="f-group" aria-labelledby="mortgageTypeLabel">
@@ -139,23 +143,25 @@ mortgageForm.controls['mortgageType'];
         }
       </fieldset>
 
-      <button
-        role="polite"
-        class="mc__form-calculate f-button text-preset-3 bg-lime slate-900 flex-row-center w-100"
-        type="submit"
-        [disabled]="mortgageForm.invalid"
-        [title]="mortgageForm.invalid? 'Fill Fields before calculate' : 'Calculate Repayments'"
-        [attr.aria-label]="mortgageForm.invalid? 'Fill Fields before calculate' : 'Calculate Repayments'"
-      >
-        <img
-          src="assets/images/icon-calculator.svg"
-          alt=""
-          aria-hidden="true"
-          height="24px"
-          width="24px"
-        />
-        Calculate Repayments
-      </button>
+      <div class="f-group-columns">
+        <button
+          role="polite"
+          class="mc__form-calculate f-button text-preset-3 bg-lime slate-900 flex-row-center w-100"
+          type="submit"
+          [disabled]="mortgageForm.invalid"
+          [title]="mortgageForm.invalid? 'Fill Fields before calculate' : 'Calculate Repayments'"
+          [attr.aria-label]="mortgageForm.invalid? 'Fill Fields before calculate' : 'Calculate Repayments'"
+        >
+          <img
+            src="assets/images/icon-calculator.svg"
+            alt=""
+            aria-hidden="true"
+            height="24px"
+            width="24px"
+          />
+          Calculate Repayments
+        </button>
+      </div>
     </form>
   </div>
 
