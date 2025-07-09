@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -12,7 +13,7 @@ const MORTGAGE_TYPE = {
 @Component({
   selector: 'app-mortgage-calculator',
   standalone: true,
-  imports: [ReactiveFormsModule, OnlyNumbersDirective],
+  imports: [ReactiveFormsModule, OnlyNumbersDirective, DecimalPipe],
   templateUrl: './mortgage-calculator.html',
   styleUrl: './mortgage-calculator.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,7 +29,7 @@ export class MortgageCalculator {
       mortgageAmount: new FormControl('', [Validators.required, Validators.min(1)]),
       mortgageTerm: new FormControl('', [Validators.required, Validators.min(1)]),
       interestRate: new FormControl('', [Validators.required, Validators.min(1)]),
-      mortgageType: new FormControl(MORTGAGE_TYPE.repayment, Validators.required),
+      mortgageType: new FormControl('', Validators.required),
     });
   }
 

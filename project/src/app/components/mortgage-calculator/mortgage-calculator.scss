@@ -1,15 +1,51 @@
 .mc {
   &__form {
+    padding: 32px 24px;
     background-color: var(--clr-white);
     color: var(--clr-slate-700);
 
     &-title {
       color: var(--clr-slate-900);
+      margin-bottom: 8px;
+    }
+
+    &-clear {
+      margin-bottom: 24px;
+    }
+
+    &-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    &-calculate {
+      padding-block: 16px;
+      gap: 10px;
     }
   }
 
   &__result {
+    padding: 32px 24px;
     background-color: var(--clr-slate-900);
     color: var(--clr-slate-300);
+
+    h2 {
+      margin-bottom: 16px;
+    }
+
+    hr {
+      height: 1px;
+      color: var(--clr-slate-700);
+      background-color: var(--clr-slate-700);
+      margin-block: 32px;
+      border: none;
+    }
+
+    &-data {
+      border-top: 4px solid var(--clr-lime);
+      border-radius: 8px;
+      padding: 32px;
+    }
   }
 }

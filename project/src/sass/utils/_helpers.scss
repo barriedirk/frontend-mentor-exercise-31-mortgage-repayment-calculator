@@ -63,11 +63,11 @@
 }
 
 .lime {
-  background-color: var(--clr-lime);
+  color: var(--clr-lime);
 }
 
 .red {
-  background-color: var(--clr-red);
+  color: var(--clr-red);
 }
 
 .bg-lime {
@@ -78,8 +78,24 @@
   background-color: var(--clr-slate-900);
 }
 
+.bg-slate {
+  background-color: var(--bg-slate-box);
+}
+
 .w-100 {
   width: 100%;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.mb-4 {
+  margin-bottom: 4px;
+}
+
+.mb-8 {
+  margin-bottom: 8px;
 }
 
 .flex-row-center {
@@ -87,6 +103,21 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.gap-12 {
+  gap: 12px;
 }
 
 .f-group {
@@ -102,13 +133,22 @@
   border-radius: 4px;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
 }
 
 .f-input {
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+
+  height: 100%;
+  border: none;
+  padding: 0 8px;
+
   border-radius: 4px;
-  padding: 10px;
+  padding: 12px 10px;
 }
 
 .f-input-icon {
@@ -118,14 +158,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
   pointer-events: none;
   background-color: var(--clr-slate-100);
   z-index: 2;
 }
 
+.f-group.error .f-input-wrapper {
+  border-color: var(--clr-red);
+}
+
+.f-group.error .f-input-icon {
+  background-color: var(--clr-red);
+  color: var(--clr-white);
+}
+
 .f-button {
   border-radius: 999px;
+}
+
+.f-button:disabled {
+  opacity: 0.4;
 }
 
 .f-custom-radio {
@@ -169,7 +221,7 @@
   .f-radio-text {
     display: inline-block;
     width: 100%;
-    padding: 5px 5px 5px 40px;
+    padding: 10px 5px 10px 40px;
     border: 1px solid var(--clr-slate-500);
     border-radius: 4px;
   }
