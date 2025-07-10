@@ -18,37 +18,43 @@ mortgageForm.controls['mortgageType'];
       </button>
     </header>
 
-    <form class="mc__form-fields" [formGroup]="mortgageForm" (ngSubmit)="calculateRepayments()">
-      <div class="f-group" [class.error]="mortgageAmountCtrl.invalid && mortgageAmountCtrl.touched">
+    <form
+      class="mc__form-fields"
+      [formGroup]="mortgageForm"
+      (ngSubmit)="calculateRepayments()"
+      (keydown.enter)="disableEnterSubmit($event)"
+    >
+      <div
+        class="f-group"
+        [class.error]="mortgageAmountCtrl?.invalid && mortgageAmountCtrl?.touched"
+      >
         <label class="f-label text-preset-4 slate-700" for="mortgageAmount">Mortgage Amount</label>
 
         <div class="f-input-wrapper text-preset-3">
           <span class="f-input-icon">£</span>
           <input
+            #mortgageAmountInput
             id="mortgageAmount"
             class="f-input slate-900 icon-pound"
             formControlName="mortgageAmount"
-            appOnlyNumbers
+            [appOnlyNumbers]="false"
             aria-describedby="mortgageAmountErrors"
             autocomplete="off"
             inputmode="numeric"
-            maxlength="5"
+            maxlength="10"
+            appAutoFocus
+            appSelectOnFocus
+            [attr.aria-invalid]="mortgageAmountCtrl?.invalid && mortgageAmountCtrl?.touched"
+            [attr.aria-required]="true"
+            placeholder="e.g. 1000"
           />
         </div>
 
-        @if (mortgageAmountCtrl.invalid && mortgageAmountCtrl.touched) {
-        <div id="mortgageAmountErrors" class="red text-present-3">
-          @if (mortgageAmountCtrl.errors?.['required']) {
-          <small>Mortgage Amount is required.</small>
-          } @if (mortgageAmountCtrl.errors?.['min']) {
-          <small>Amount must be greater than 0.</small>
-          }
-        </div>
-        }
+        <app-field-error id="mortgageAmountErrors" [control]="mortgageAmountCtrl" />
       </div>
 
       <div class="f-group-columns">
-        <div class="f-group" [class.error]="mortgageTermCtrl.invalid && mortgageTermCtrl.touched">
+        <div class="f-group" [class.error]="mortgageTermCtrl?.invalid && mortgageTermCtrl?.touched">
           <label class="f-label text-preset-4 slate-700" for="mortgageTerm">Mortgage Term</label>
 
           <div class="f-input-wrapper text-preset-3">
@@ -57,24 +63,20 @@ mortgageForm.controls['mortgageType'];
               class="f-input slate-900"
               type="text"
               formControlName="mortgageTerm"
-              appOnlyNumbers
+              [appOnlyNumbers]="true"
               aria-describedby="mortgageTermErrors"
               autocomplete="off"
               inputmode="numeric"
-              maxlength="5"
+              maxlength="2"
+              appSelectOnFocus
+              [attr.aria-invalid]="mortgageTermCtrl?.invalid && mortgageTermCtrl?.touched"
+              [attr.aria-required]="true"
+              placeholder="e.g. 2"
             />
             <span class="f-input-icon">years</span>
           </div>
 
-          @if (mortgageTermCtrl.invalid && mortgageTermCtrl.touched) {
-          <div id="mortgageTermErrors" class="red text-present-3">
-            @if (mortgageTermCtrl.errors?.['required']) {
-            <small>Mortgage Term is required.</small>
-            } @if (mortgageTermCtrl.errors?.['min']) {
-            <small>Term must be greater than 0.</small>
-            }
-          </div>
-          }
+          <app-field-error id="mortgageTermErrors" [control]="mortgageTermCtrl" />
         </div>
 
         <div class="f-group" [class.error]="interestRateCtrl?.invalid && interestRateCtrl?.touched">
@@ -86,61 +88,57 @@ mortgageForm.controls['mortgageType'];
               class="f-input slate-900"
               type="text"
               formControlName="interestRate"
-              appOnlyNumbers
+              [appOnlyNumbers]="false"
               aria-describedby="interestRateErrors"
               autocomplete="off"
               inputmode="numeric"
               maxlength="5"
+              appSelectOnFocus
+              [attr.aria-invalid]="interestRateCtrl?.invalid && interestRateCtrl?.touched"
+              [attr.aria-required]="true"
+              placeholder="e.g. 3.75"
             />
             <span class="f-input-icon">%</span>
           </div>
 
-          @if (interestRateCtrl?.invalid && interestRateCtrl?.touched) {
-          <div id="interestRateErrors" class="red text-present-3">
-            @if (interestRateCtrl?.errors?.['required']) {
-            <small>Interest Rate is required.</small>
-            } @if (interestRateCtrl?.errors?.['min']) {
-            <small>Rate must be greater than or equal to 0.</small>
-            }
-          </div>
-          }
+          <app-field-error id="interestRateErrors" [control]="interestRateCtrl" />
         </div>
       </div>
 
-      <fieldset class="f-group" aria-labelledby="mortgageTypeLabel">
+      <fieldset
+        class="f-group"
+        role="radiogroup"
+        aria-labelledby="mortgageTypeLabel"
+        aria-describedby="mortgageTypeErrors"
+        [attr.aria-invalid]="mortgageTypeCtrl?.invalid && mortgageTypeCtrl?.touched"
+        [attr.aria-required]="true"
+      >
         <legend id="mortgageTypeLabel" class="f-label text-preset-4 slate-700 mb-8">
           Mortgage Type
         </legend>
 
-        <div class="w-100 flex-column-center gap-12">
-          <label class="f-custom-radio w-100 text-present-3" role="radio" aria-checked="false">
-            <input
-              class="f-radio"
-              type="radio"
-              formControlName="mortgageType"
-              [value]="'repayment'"
-            />
-            <span class="f-radio-text slate-900">Repayment</span>
-          </label>
-
-          <label class="f-custom-radio w-100 text-present-3" role="radio" aria-checked="false">
-            <input
-              class="f-radio"
-              type="radio"
-              formControlName="mortgageType"
-              [value]="'interestOnly'"
-            />
-            <span class="f-radio-text slate-900">Interest Only</span>
-          </label>
-        </div>
-
-        @if (mortgageTypeCtrl.invalid && mortgageTypeCtrl.touched) {
-        <div id="mortgageAmountErrors" class="red text-present-3">
-          @if (mortgageTypeCtrl.errors?.['required']) {
-          <small>Mortgage Amount is required.</small>
-          }
+        @for (option of mortgageOptions; track option.value) {
+        <div
+          class="f-custom-radio w-100 text-present-3"
+          role="radio"
+          [attr.aria-checked]="mortgageTypeCtrl?.value === option.value"
+          [attr.tabindex]="mortgageTypeCtrl?.value === option.value ? '0' : '-1'"
+          (click)="selectMortgageType(option.value)"
+          (keydown)="handleRadioKeydown($event, option)"
+        >
+          <input
+            class="f-radio"
+            type="radio"
+            [checked]="mortgageTypeCtrl?.value === option.value"
+            [value]="option.value"
+            tabindex="-1"
+            aria-hidden="true"
+          />
+          <span class="f-radio-text slate-900">{{ option.label }}</span>
         </div>
         }
+
+        <app-field-error id="mortgageTypeErrors" [control]="mortgageTypeCtrl" />
       </fieldset>
 
       <div class="f-group-columns">
@@ -165,7 +163,7 @@ mortgageForm.controls['mortgageType'];
     </form>
   </div>
 
-  <div class="mc__result">
+  <div class="mc__result flex-column-center">
     @if (!showResults) {
     <div class="flex-column-center">
       <img alt="" aria-hidden="true" src="assets/images/illustration-empty.svg" />

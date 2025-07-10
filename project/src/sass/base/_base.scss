@@ -20,6 +20,12 @@ body {
   }
 
   .footer__attribution {
-    display: initial;
+    display: block;
+    text-align: center;
   }
+}
+
+input::placeholder {
+  color: var(--clr-slate-300);
+  opacity: 1;
 }
