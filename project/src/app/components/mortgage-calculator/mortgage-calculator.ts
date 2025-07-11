@@ -1,5 +1,12 @@
 import { DecimalPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -32,6 +39,8 @@ const MORTGAGE_TYPE = {
 })
 export class MortgageCalculator {
   @ViewChild('mortgageAmountInput') mortgageAmountInputRef!: ElementRef<HTMLInputElement>;
+
+  @ViewChildren('radioItem') radioItems!: QueryList<ElementRef<HTMLElement>>;
 
   mortgageForm: FormGroup;
   showResults = false;
@@ -92,8 +101,12 @@ export class MortgageCalculator {
       const newValue = this.mortgageOptions[newIndex].value;
       this.selectMortgageType(newValue);
       // Move focus manually
-      const radios = document.querySelectorAll('[role="radio"]');
-      const target = radios[newIndex] as HTMLElement;
+      // const radios = document.querySelectorAll('[role="radio"]');
+      // const target = radios[newIndex] as HTMLElement;
+      // target?.focus();
+
+      const radioArray = this.radioItems.toArray();
+      const target = radioArray[newIndex]?.nativeElement;
       target?.focus();
     }
   }

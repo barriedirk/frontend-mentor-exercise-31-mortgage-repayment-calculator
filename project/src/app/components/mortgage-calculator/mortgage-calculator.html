@@ -119,6 +119,7 @@ mortgageForm.controls['mortgageType'];
 
         @for (option of mortgageOptions; track option.value) {
         <div
+          #radioItem
           class="f-custom-radio w-100 text-present-3"
           role="radio"
           [attr.aria-checked]="mortgageTypeCtrl?.value === option.value"
