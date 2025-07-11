@@ -1,12 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -55,11 +48,7 @@ export class MortgageCalculator {
   constructor() {
     this.mortgageForm = new FormGroup({
       mortgageAmount: new FormControl('', [Validators.required, Validators.min(1)]),
-      mortgageTerm: new FormControl('', [
-        Validators.required,
-        Validators.min(1),
-        Validators.pattern(/^\d+$/),
-      ]),
+      mortgageTerm: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]),
       interestRate: new FormControl('', [Validators.required, Validators.min(0.01)]),
       mortgageType: new FormControl(MORTGAGE_TYPE.repayment, Validators.required),
     });
