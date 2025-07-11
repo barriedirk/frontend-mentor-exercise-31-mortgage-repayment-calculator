@@ -100,10 +100,6 @@ export class MortgageCalculator {
       event.preventDefault();
       const newValue = this.mortgageOptions[newIndex].value;
       this.selectMortgageType(newValue);
-      // Move focus manually
-      // const radios = document.querySelectorAll('[role="radio"]');
-      // const target = radios[newIndex] as HTMLElement;
-      // target?.focus();
 
       const radioArray = this.radioItems.toArray();
       const target = radioArray[newIndex]?.nativeElement;
